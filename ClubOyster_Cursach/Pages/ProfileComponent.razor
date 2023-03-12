@@ -1,0 +1,51 @@
+﻿@page "/profile"
+@using ClubOyster_Cursach.Data;
+
+<PageTitle>Your Profile</PageTitle>
+
+<section class="h-100 bg-dark">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-9 col-xl-7">
+                <div class="card">
+                    <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+                        <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                                 style="width: 150px; z-index: 1">
+                            <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                                    style="z-index: 1;">
+                                Edit profile
+                            </button>
+                        </div>
+                        <div class="ms-3" style="margin-top: 130px;">
+                            <h5>Andy Horwitz</h5>
+                            <p>New York</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-black" style="background-color: #f8f9fa;">
+
+                    </div>
+                    <div class="card-body p-4 text-black">
+                        <div class="mb-5 py-5">
+                            <p class="lead fw-normal mb-1">Информация</p>
+                            <div class="p-4 h-75" style="background-color: #f8f9fa;">
+                                <label class="font-italic">Почта:</label>
+                                <InputText class="font-italic mb-2" disabled="true" @bind-Value="user.Email">davletka@gmail.com</InputText>
+                                <label class="font-italic">Телефон:</label>
+                                <InputText class="font-italic mb-2" disabled="true" @bind-Value="user.Phone">79172659873</InputText>
+                                <label class="font-italic">ФИО:</label>
+                                <InputText class="font-italic mb-2" disabled="true" @bind-Value="user.Name">Давлетшин Булат Айратович</InputText>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@code {
+    User user = new User();
+}
