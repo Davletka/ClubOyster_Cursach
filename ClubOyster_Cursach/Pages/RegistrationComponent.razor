@@ -6,15 +6,15 @@
 <PageTitle>Registration Form</PageTitle>
 
 
-<EditForm Model="userModel">
+<EditForm Model="userModel" style="height:680px; border-radius: 10px; top:360px">
     <DataAnnotationsValidator/>
 
-    <h3 class="h3">Регистрация</h3>
+    <h3 class="h3" style="line-height:1.9 ">Регистрация</h3>
     <InputText id="name" type="text" placeholder="Логин" @bind-Value="userModel.Login"></InputText>
     <ValidationMessage For="() => userModel.Login"/>
 
-    <InputText id="name" type="text" placeholder="Имя" @bind-Value="userModel.Name"></InputText>
-    <ValidationMessage For="() => userModel.Name" />
+    <InputText id="name" type="text" placeholder="Имя" @bind-Value="userModel.FirstName"></InputText>
+    <ValidationMessage For="() => userModel.FirstName" />
 
     <InputText id="name" type="text" placeholder="Номер телефона" maxlength="11" @bind-Value="userModel.Phone"></InputText>
     <ValidationMessage For="() => userModel.Phone" />
@@ -28,7 +28,9 @@
     <InputText id="password" type="password" placeholder="Подтверждение пароля"  @bind-Value="ConfirmPassword_"></InputText>
     <ValidationMessage For="() => userModel.Password" />
 
-    <button type="button" @onclick="Registration">Зарегистрироваться</button>
+    <button type="button" style="height:35; border-radius: 20px;" @onclick="Registration">Зарегистрироваться</button>
+    <button type="button" style="height:35; border-radius: 20px;" @onclick="ClearInput">Очистить поля</button>
+    <button type="button" style="height:35; border-radius: 20px;" @onclick="Auth">На главную страницу</button>
 
     @if (check == true)
     {
@@ -50,7 +52,7 @@
     {
         var users = MongoDb.FindUsers();
 
-        if (userModel.Login != null && userModel.Name != null && userModel.Phone != null && userModel.Email != null && userModel.Password != null && ConfirmPassword_ != null)
+        if (userModel.Login != null && userModel.FirstName != null && userModel.Phone != null && userModel.Email != null && userModel.Password != null && ConfirmPassword_ != null)
         {
             if (userModel.Password == ConfirmPassword_)
             {
@@ -79,7 +81,7 @@
                 User newUser = new User()
                 {
                     Login = userModel.Login,
-                    Name = userModel.Name,
+                    FirstName = userModel.FirstName,
                     Phone = userModel.Phone,
                     Email = userModel.Email,
                     Password = userModel.Password
@@ -88,5 +90,20 @@
                 navigationManager.NavigateTo("/");
             }
         }
+    }
+
+    private void ClearInput()
+    {
+        userModel.Login = null;
+        userModel.FirstName = null;
+        userModel.Phone = null;
+        userModel.Email = null;
+        userModel.Password = null;
+        ConfirmPassword_ = null;
+    }
+
+    private void Auth()
+    {
+        navigationManager.NavigateTo("/");
     }
 }

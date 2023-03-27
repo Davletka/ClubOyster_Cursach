@@ -1,18 +1,36 @@
 ﻿@inherits LayoutComponentBase
-
+@inject NavigationManager navigationMan
+@inject IJSRuntime jsRun
 <PageTitle>Club Oyster</PageTitle>
 
-<div class="page bg">
+<div class="page bg-black">
     <div class="sidebars">
         <NavMenu  />
     </div>
 
     <main>
-@*        <div class="top-row px-4 bg-dark align-content-center">
-        </div>*@
+        <div id="iconMain" class="top-row px-4 bg-black" style="display:none">
+             <NavLink class="nav-link" href="/profile" Match="NavLinkMatch.All">
+                <span class="m-2 fs-4" aria-hidden="true" href="/profile" style="color:white">Профиль</span>
+            </NavLink>
+
+            <NavLink class="nav-link" Match="NavLinkMatch.All">
+                <span class="m-2 fs-4" @onclick="Logout" aria-hidden="true" style="color:white" role="button">Выйти</span>
+            </NavLink>
+        </div>
 
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
+
+@code {
+    private void Logout()
+    {
+        navigationMan.NavigateTo("/");
+        jsRun.InvokeVoidAsync("closeNavMenu");
+        jsRun.InvokeVoidAsync("closeMainLayot");
+        jsRun.InvokeVoidAsync("closeIconMain");
+    }
+}

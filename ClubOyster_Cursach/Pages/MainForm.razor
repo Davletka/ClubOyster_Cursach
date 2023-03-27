@@ -1,0 +1,110 @@
+﻿@page "/mainpage"
+@using ChartJs.Blazor.Common;
+@using ChartJs.Blazor.PieChart
+@using ChartJs.Blazor.Util;
+@using ClubOyster_Cursach.Shared.MyComponents;
+@using ChartJs.Blazor.BarChart;
+
+<h2 style="color:white">Общий свод</h2>
+
+<div class="container-fluid">
+    <div class="row" style="flex-wrap:wrap; display:flex;margin-right: -15px;
+    margin-left: -15px;">
+            <div class="row">
+                <div class="col-lg-6 col-xl-3 mb-4">
+                    <TotalEarning />
+                </div>
+                <div class="col-lg-6 col-xl-3 mb-4">
+                    <MonthAverage />
+                </div>
+                <div class="col-lg-6 col-xl-3 mb-4">
+                    <TotalCustomers />
+                </div>
+
+                <div class="col-lg-6 col-xl-3 mb-4">
+                    <EarningGrowth />
+                </div>
+            </div>
+    </div>
+</div>
+
+<Chart Config="_config"></Chart>
+
+@code {
+    private PieConfig? _config;
+
+    private const int InitalCount = 7;
+
+    private BarConfig? barConfig;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _config = new PieConfig
+            {
+                Options = new PieOptions
+                {
+                    Responsive = true,
+                    Title = new OptionsTitle
+                    {
+                        Display = true,
+                        Text = "Доходы и Расходы за месяц"
+                    }
+                }
+            };
+
+        foreach (string color in new[] { "Доход", "Расход", "Кредит" })
+        {
+            _config.Data.Labels.Add(color);
+        }
+
+        PieDataset<int> dataset = new PieDataset<int>(new[] { 6, 5, 3 })
+            {
+                BackgroundColor = new[]
+                    {
+            ColorUtil.ColorHexString(255, 99, 132), // Slice 1 aka "Red"
+            ColorUtil.ColorHexString(255, 205, 86), // Slice 2 aka "Yellow"
+            ColorUtil.ColorHexString(75, 192, 192), // Slice 3 aka "Green"
+        }
+            };
+
+        _config.Data.Datasets.Add(dataset);
+
+
+        //barConfig = new BarConfig
+        //    {
+        //        Options = new BarOptions
+        //        {
+        //            Responsive = true,
+        //            Title = new OptionsTitle
+        //            {
+        //                Display = true,
+        //                Text = "Устройства, оборудование и товар"
+        //            }
+        //        }
+        //    };
+
+        //foreach (string color in new[] { "Техника", "Оборудование", "Товар" })
+        //{
+        //    barConfig.Data.Labels.Add(color);
+        //}
+
+        //IDataset<int> dataset1 = new BarDataset<int>(new[] { 15 })
+        //    {
+        //        Label = "My first dataset",
+        //        BackgroundColor = ColorUtil.RandomColorString(),
+        //        BorderColor = ColorUtil.RandomColorString(),
+        //        BorderWidth = 1
+        //    };
+
+        //IDataset<int> dataset2 = new BarDataset<int>(new[] { 40})
+        //    {
+        //        Label = "My second dataset",
+        //        BackgroundColor = ColorUtil.RandomColorString(),
+        //        BorderColor = ColorUtil.RandomColorString(),
+        //        BorderWidth = 1
+        //    };
+
+        //_config.Data.Datasets.Add(dataset1);
+        //_config.Data.Datasets.Add(dataset2);
+    }
+}

@@ -1,18 +1,18 @@
 ﻿@page "/"
 @inject NavigationManager navigationManager
 @using ClubOyster_Cursach.Data
+@inject UserService userService
+@inject IJSRuntime jsRun
 
 <PageTitle>Autorization Form</PageTitle>
 
-<div class="align-content-center">
-    <h3 class="fs-4 fw-bold text-white">BLUE OYSTER</h3>
-    
-</div>
-
-<EditForm Model="userModel">
+<EditForm Model="userModel" style="height:auto">
     <DataAnnotationsValidator/>
-
-    <h3 class="h3">Авторизация</h3>
+    <div class="align-content-center" style="text-align:center">
+        <a class="navbar-brand fw-bold fs-2 m-3" style="color:white">BLUE OYSTER</a>
+        <label></label>
+    </div>
+    <h3 class="h3 fs-4">Авторизация</h3>
     <label for="name">Логин</label>
     <InputText id="name" type="text" @bind-Value="userModel.Login"></InputText>
     <ValidationMessage For="() => userModel.Login"/>
@@ -21,12 +21,14 @@
     <InputText id="password" type="password" @bind-Value="userModel.Password"></InputText>
     <ValidationMessage For="() => userModel.Password" />
 
-    <button type="button" @onclick="Autorizaiton">Войти</button>
-    <button type="button" @onclick="RegistrationForm">Зарегистрироваться</button>
+    <button type="button" style="border-radius: 20px" @onclick="Autorizaiton">Войти</button>
+    <button type="button" style="border-radius: 20px" @onclick="RegistrationForm">Зарегистрироваться</button>
 
     @if (check == true)
     {
-        <strong class="text-center">@exeption</strong>
+        <blockquote style="color:white; text-align:center; top:100px; line-height: 4">
+            <strong>@exeption</strong>
+        </blockquote>
     }
 
 </EditForm>
@@ -39,6 +41,8 @@
 
     private bool? check = false;
 
+    private bool? succes = false;
+
     private void RegistrationForm()
     {
         navigationManager.NavigateTo("/registration");
@@ -49,16 +53,23 @@
         if (userModel.Login != null || userModel.Password != null)
         {
             var checkUsers = MongoDb.FindUsers();
+            bool tmp = true;
 
             foreach(var item in checkUsers)
             {
                 if (userModel.Login == item.Login && userModel.Password == item.Password)
                 {
-                    navigationManager.NavigateTo("/profile");
+                    userService.Set(item);
+                    navigationManager.NavigateTo("/mainpage");
+                    tmp = false;
+                    jsRun.InvokeVoidAsync("openMainLayot");
+                    succes = true;
+                    jsRun.InvokeVoidAsync("openNavMenu");
+                    jsRun.InvokeVoidAsync("openIconMain");
+                    break;
                 }
             }
-            check = true;
-
+            if (tmp) check = true;
         }
     }
 }

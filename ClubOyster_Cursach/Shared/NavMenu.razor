@@ -1,23 +1,37 @@
-﻿@*<div class="top-row ps-3 navbar align-content-center navbar-dark bg-dark">
+﻿@inject NavigationManager navigationManager
+@using ClubOyster_Cursach.Data;
+@inject UserService userSer;
+
+<div id="maibLayout-id" style="display:none; position:sticky; flex-wrap:initial" class="top-row ps-6 navbar align-content-center navbar-black bg-black">
     <div class="container-fluid">
-        <a class="navbar-brand fs-4 fw-bold" href="">BLUE OYSTER</a>
+        <img src="Images/FinalLogo.png" style="height:50px; width:50px;" />
+        <a class="navbar-brand fw-bold fs-4 m-1" style="color:white">BLUE OYSTER</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-</div>*@
+</div>
 
-@*<div class="@NavMenuCssClass nav-scrollable bg-dark" @onclick="ToggleNavMenu">
+<div id="nav-bar-id" class="@NavMenuCssClass nav-scrollable bg-black" @onclick="ToggleNavMenu" style="display:none; position:fixed">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Main Form
+            <NavLink class="nav-link" href="/mainpage" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Главная страница
+            </NavLink>
+            <NavLink class="nav-link" href="/analyticpage" Match="NavLinkMatch.All">
+                <span class="oi oi-book" aria-hidden="true"></span> Аналитика
+            </NavLink>
+            <NavLink class="nav-link" href="/reportspage" Match="NavLinkMatch.All">
+                <span class="oi oi-calculator" aria-hidden="true"></span>Отчёты
             </NavLink>
         </div>
     </nav>
-</div>*@
+</div>
+
+
 
 @code {
+
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;

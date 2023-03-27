@@ -88,7 +88,7 @@ a, .btn-link {
 }
 
 body {
-    background-color: #080710;
+    background-color: #000000;
 }
 
 .background {
@@ -222,4 +222,32 @@ button {
     background-color: black;
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-color: black;
+}
+
+.sidebars {
+    width: 250px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar .top-row {
+    background-color: rgba(0,0,0,0.4);
+}
+
+.pl-4, .px-4 {
+    padding-left: 1.5rem !important;
+}
+
+.navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
 }
